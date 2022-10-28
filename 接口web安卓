@@ -1,0 +1,102 @@
+1、find_element 使用给定的方法定位和查找一个元素
+2、find_elements 使用给定的方法定位和查找所有元素 list
+常用定位方式共八种：
+1.当页面元素有 id 属性时，最好尽量用 by_id 来定位。
+2.XPath 很强悍，但定位性能不是很好，所以还是尽量少用。如果确实少数元素不好定位，
+那还是选择 XPath 或 cssSelector。
+3.当有链接需要定位时，可以考虑使用 by_link_text 或 by_partial_link_text。
+el = driver.find_element(By.ID,'kw')
+driver.find_element(By.NAME, 'wd').send_keys("电脑")
+driver.find_element(By.CLASS_NAME, 's_ipt').send_keys("电脑")
+4. 通过tag_name 定位，不常用，相同元素的标签太多了
+driver.find_element(By.TAG_NAME, 'input').send_keys("电脑")
+5. 通过link_text定位，页面上的文本信息
+driver.find_element(By.LINK_TEXT, '新闻').click()
+6. 通过partial_link_text定位，模糊查询页面文本信息定位
+webdriver-helper自动检测浏览器驱动     from  webdriver-helper.driver import getwebdriver   driver =getwebdriver()          https://www.cnblogs.com/bao-yan/p/16480026.html
+driver.find_element(By.PARTIAL_LINK_TEXT, '唐山打人案保').click()
+
+7. xpath定位
+
+1.使用绝对路径定位
+
+/html/body/div/div/div[5]/div/div/span/input
+
+#括号下标从1开始
+
+driver.find_element(By.XPATH, "/html/body/div/div/div[5]/div/div/form/span/input").send_keys('123')
+
+2. 利用元素属性定位,//表示相对路径
+
+//input[@id=’kw’]
+
+//*[@id='kw']
+
+*表示不知道什么属性的时候
+
+driver.find_element(By.XPATH, "//input[@id='kw']").send_keys('123')
+
+3. 利用父子关系以及元素定位
+
+//form[@id='form']/span/input
+
+driver.find_element(By.XPATH, "//form[@id='form']/span/input").send_keys('123')
+
+4. 使用逻辑运算符定位
+
+利用其中的两个元素定位例如id+class
+
+例：
+
+元素a：id=9 name=x
+
+元素b: id=9 name=y
+
+元素c：id=99 name=x
+
+定位属性a比较麻烦id和name都有重复的
+
+使用and 或者 or
+
+driver.find_element(By.XPATH, "//input[@id='kw' and @name='wd']").send_keys('123')
+
+CSS定位
+
+CSS_SELECTOR
+
+1.类选择器
+
+类选择器.class属性
+
+driver.find_element(By.CSS_SELECTOR, '.s_ipt').send_keys('123')
+
+2. id选择其
+
+#id属性
+
+driver.find_element(By.CSS_SELECTOR, "#su").click()
+
+3. 表示父子关系定位
+
+Form#form>span >input
+
+driver.find_element(By.CSS_SELECTOR, 'form#form>span >input').send_keys('123')
+浏览器操作
+          1、浏览器窗口大小设置
+          # 设置浏览器宽 480、高 800
+          driver.set_window_size(480, 800)
+          # 浏览器窗口最大化
+          driver.maximize_window()
+          2、浏览器页面前进后退
+          # 前进
+          driver.forward()
+          # 后退
+          driver.back()
+          3、浏览器页面刷新
+          # 刷新
+          driver.refresh()
+          4、浏览器关闭
+          # 关闭当前窗口
+          driver.close()
+          # 退出驱动并关闭所有关联的窗口
+          driver.quit()
