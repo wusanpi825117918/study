@@ -1,0 +1,159 @@
+适应大小动态数值height: -webkit-calc(100% - 410px)
+页面布局<el-container >
+           <el-aside >         
+           </el-aside>
+           <el-container>
+               <el-header>                  
+               </el-header>
+               <el-main>
+                   <el-card > 
+                   </el-card>
+               </el-main>
+           </el-container>
+</el-container>
+get请求
+  axios.get('/get_echarts_data/').then(res=>{               
+                this.data = res.data;                
+            })
+弹窗关闭前动作 :before-close="close_tasks"
+自动重复执行
+get_tasks(){
+    // 自动重复执行
+    this.t1 = setInterval(()=>{
+        this.get_tasks_act()
+    },2000)
+},
+close_tasks(done){
+    clearInterval(this.t1)
+    done()
+2.动态样式
+ :style="{color:getColor(scope.row.status)}" 
+getColor(status){    if(status=='队列中'){        return 'blue'    }else if(status=='压测中'){        return 'green'    }else{        return 'black'    }},
+
+<el-table-column label="状态" width="100">
+    <template slot-scope="scope">
+        <p :style="{color:getColor(scope.row.status)}"><strong>{{scope.row.status}}</strong></p>
+    </template>
+</el-table-column>
+getColor(status){
+    if(status=='队列中'){
+        return 'blue'
+    }else if(status=='压测中'){
+        return 'green'
+    }else{
+        return 'black'
+    }
+}
+7：v-for
+可以循环元素本体及子元素。v-for = "i in 变量"
+使用时候 用 {{ i }} ,此时的i 等价于在data-return中声明的变量一样的用法，仅能用于 这个循环元素内
+变量需要在data-return中声明，最常见的格式是 [{},{},{}]
+知识点8：mounted
+Mounted 是一个特殊函数，里面的内容 会自动的在 页面加载之前就自动运行。
+常用于 获取一些数据。
+或者进行一些初始化判断等。
+
+知识点9：axios 发送http请求的
+import axios from 'axios'
+get请求
+axios.get('/login_act/',{
+    params:{
+        u:this.form.username,
+        p:this.form.password
+    }
+}).then(res=>{
+    this.data=res.data
+})
+post请求
+axios.post('/login_act/',this.form).then(res=>{
+   res.data 
+})
+知识点11：sessionStorage.setItem('key','value')  和 sessionStorage.getItem('key')
+来设置session和获取session
+set是在login.vue中，get是在首页或以后其他各个页面中
+知识点12： 组件
+创建组件 Menu.vue
+引入组件：import Menu from '../components/Menu'
+挂载组件：components:{
+    Menu,
+}
+使用组件：在dom层中的合适位置，用组件名称的标签占位。<Menu></Menu>
+
+知识点13：标签属性默认内容为字符串，如果标签属性前面加了: ，则值为一段表达式。
+
+知识点14： document.getElementById('myChart')  原生js靠id找到目标元素的代码
+
+知识点15： el-dialog 
+width:50% 默认
+https://element.eleme.cn/#/zh-CN/component/dialog
+
+知识点16： el-table
+https://element.eleme.cn/#/zh-CN/component/table
+
+知识点17：跳转元素
+<a>  ： 跳转到外部链接的 或 django的页面
+<router-link> ： 跳转到 vue-cli里面 router.js 写的具体组件
+<router-link :to=" '/project_detail/?project_id=' + scope.row.id">    <el-button size="mini" type="success">进入</el-button></router-link>
+to加冒号，里面不再是字符串，而是一段代码表达式。
+
+知识点18： &nbsp; 是一个空格
+
+知识点19：从url的参数部分获取数据 ：this.$route.query.project_id （vue的bom层中使用的）
+{{ $route.query.project_id  }} (dom层标签中间使用的)
+
+el-form 表单，可以直接关联并同步 vue的具体字典型变量，post请求可以直接发送这个变量，而不用从表单的各个输入框中提取数据了。
+
+js刷新页面： window.location.reload()
+知识点24：上传文件
+El-upload
+<el-upload
+    :action="get_action()"
+    :limit="10"
+    name="script_file"
+    :on-success="get_script_list" //上传成功的回调函数。
+>
+    <el-button>上传脚本</el-button>
+</el-upload>
+
+def upload_script_file(request):
+    myFile = request.FILES.get('script_file')
+    file_name = str(myFile)
+    fp = open('scripts/'+file_name,'wb+')
+    for i in myFile.chunks():
+        fp.write(i)
+    fp.close()
+    return HttpResponse('')
+知识点28：修改顶部的vue路由：（#号之后的部分）
+this.$router.push( '/project_detail/?project_id=' + id);
+如果想修改完整的： window.location.href=""
+this.函数名() 可以调用vue内methods里的函数
+:close-on-click-modal="false" 点击遮罩层不关闭dialog
+分页
+dom层每页展示数
+:data="projects.slice((project_currentPage - 1)*project_pageSize,project_currentPage*project_pageSize)"
+设置分页效果
+<el-pagination background
+              layout="prev, pager, next,jumper, ->, total"
+              :total="project_total"
+              @current-change="handleCurrentChange"
+              :current-page="project_currentPage"
+              :page-size="project_pageSize"
+>  </el-pagination>
+data
+project_currentPage:1,
+project_pageSize:6,
+project_total:0,
+
+初始化this.project_total = this.projects.length
+methods里新增函数
+handleCurrentChange(project_currentPage){
+    console.log(project_currentPage,this.projects.length/this.project_pageSize)
+    if(project_currentPage - this.projects.length/this.project_pageSize >=1 && project_currentPage>1){
+
+        project_currentPage --;
+    }
+    this.project_currentPage = project_currentPage
+    
+去可能修改整体数据数量的函数中，调用handleCurrentChange，和初始化调用不同的是，传入的参数为当前页，而非1
+this.project_total = this.projects.length
+this.handleCurrentChange(this.project_currentPage)
