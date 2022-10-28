@@ -157,3 +157,12 @@ handleCurrentChange(project_currentPage){
 去可能修改整体数据数量的函数中，调用handleCurrentChange，和初始化调用不同的是，传入的参数为当前页，而非1
 this.project_total = this.projects.length
 this.handleCurrentChange(this.project_currentPage)
+<el-select v-model="project_detail.scripts" multiple placeholder="请选择脚本" style="width: 100%">
+
+                                <el-option
+                                    v-for="(i,index) in script_list"
+                                    :label=" '【' +index+ '】'+ i"
+                                    :value="i"
+                                ></el-option>
+
+ </el-select>
