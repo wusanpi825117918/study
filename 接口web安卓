@@ -100,3 +100,53 @@ driver.find_element(By.CSS_SELECTOR, 'form#form>span >input').send_keys('123')
           driver.close()
           # 退出驱动并关闭所有关联的窗口
           driver.quit()
+下拉菜单操作    
+                    1、使用 Select 类来处理下拉菜单
+                    select = Select(driver.find_element_by_id('select-demo'))
+                    # 通过 value 来选择，例如：香蕉
+                    select.select_by_value('banana')
+                    # 通过 index 来选择（从 0 开始），例如：葡萄
+                    select.select_by_index(2)
+                    # 通过 text 来选择，例如：苹果
+                    select.select_by_visible_text('苹果')
+ # 隐式等待
+driver.implicitly_wait(5)
+try:
+ driver.find_element_by_id("su").click()
+except NoSuchElementException as msg:
+ print(msg)
+ # 判断 id 为 kw 元素是否可见
+element = WebDriverWait(driver,5,0.5).until(lambda x: x.find_element_by_id("kw").is_displayed())
+多表单切换
+          1、switch_to.frame() 默认可以直接取表单的 id 或 name 属性进行切换，也可以用 Xpath 等。
+          例如：
+          driver.switch_to.frame("frameA")
+          driver.switch_to.frame(driver.find_element_by_xpath("//iframe[@src='frame2.html']"))
+          2、switch_to.parent_frame() 跳出当前层
+          3、switch_to.default_content() 返回最外层
+ 多窗口切换
+          driver.current_window_handle 获得当前窗口句柄
+          window_handles 获取所有窗口句柄
+          switch_to.window() 切换窗口
+ 接口
+          requests.get(url='http://httpbin.org/get',params=data,headers=headers)/json单引号
+          res.encoding='utf-8'
+          print(res.status_code)         
+          print(res.headers)         
+          print(res.text)      
+          print(res.json())
+ unittest
+          class TestDemo(unittest.TestCase):
+          3、setUpClass()：必须使用@classmethod 装饰器，所有 test 运行前执行一次。
+          例如：
+           @classmethod
+           def setUpClass(cls):
+           print('setUpClass')
+          4、tearDownClass()：必须使用@classmethod 装饰器，所有 test 运行完后执行一次。
+          例如：
+           @classmethod
+           def tearDownClass(cls):
+           print('tearDownClass')
+          将 test_Demo1 模块下的 TestDemo1 类下的 test_case1 测试用例添加到测试套件中。
+          suite = unittest.TestSuite()
+          suite.addTest(test_Demo1.TestDemo1('test_case1'))
