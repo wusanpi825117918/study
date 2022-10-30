@@ -135,18 +135,32 @@ element = WebDriverWait(driver,5,0.5).until(lambda x: x.find_element_by_id("kw")
           print(res.headers)         
           print(res.text)      
           print(res.json())
- unittest
-          class TestDemo(unittest.TestCase):
-          3、setUpClass()：必须使用@classmethod 装饰器，所有 test 运行前执行一次。
-          例如：
-           @classmethod
-           def setUpClass(cls):
-           print('setUpClass')
-          4、tearDownClass()：必须使用@classmethod 装饰器，所有 test 运行完后执行一次。
-          例如：
-           @classmethod
-           def tearDownClass(cls):
-           print('tearDownClass')
-          将 test_Demo1 模块下的 TestDemo1 类下的 test_case1 测试用例添加到测试套件中。
-          suite = unittest.TestSuite()
-          suite.addTest(test_Demo1.TestDemo1('test_case1'))
+ unittest        
+           suite = unittest.TestSuite()
+           suite.addTest(TestDemo('test_case2'))
+           suite.addTest(TestDemo('test_case1'))
+           runner = unittest.TextTestRunner(verbosity=2)
+           runner.run(suite)
+          class TEST(unittest.TestCase):
+              @classmethod
+              def setUpClass(cls):
+                  print('setUpClass')
+              @classmethod
+              def tearDownClass(cls):
+                  print('teartDownClass')
+              def setUp(self):
+                  print('setUp')
+              def tearDown(self):
+                  print('tearDown')
+              def test_001(self):
+                  self.assertEqual(1+1,2,'用例失败')
+                  
+          if __name__ == '__main__':
+              unittest.main()
+          @unittest.skip(reason)：skip(reason)装饰器，无条件跳过装饰的测试，并说明跳过测试的原因。
+          @unittest.skipIf(reason)：skipIf(condition,reason)装饰器，条件为真时，跳过装饰的测试，并
+          说明跳过测试的原因。
+          @unittest.skipUnless(reason)：skipUnless(condition,reason)装饰器，条件为假时，跳过装饰的
+          测试，并说明跳过测试的原因。
+          @unittest.expectedFailure：测试标记为失败。
+          
