@@ -164,3 +164,48 @@ element = WebDriverWait(driver,5,0.5).until(lambda x: x.find_element_by_id("kw")
           测试，并说明跳过测试的原因。
           @unittest.expectedFailure：测试标记为失败。
           
+拖拽滚动条dr.execute_script('document.documentElement.scrollTop=10000')
+打开一个新的Window
+driver.get("https://www.google.com/");
+// Opens a new window and switches to new window
+driver.switchTo().newWindow(WindowType.WINDOW);
+ 
+// Opens BrowserStack homepage in the newly opened window
+driver.navigate().to("https://www.browserstack.com/");
+打开一个新的Tab页（同一个浏览器）
+driver.get("https://www.google.com/");
+ 
+// Opens a new tab in existing window
+driver.switchTo().newWindow(WindowType.TAB);
+ 
+// Opens Browserstack homepage in the newly opened tab
+driver.navigate().to("https://www.browserstack.com/");
+8. Actions类的一些改动
+Actions类通常用来模拟用户的鼠标和键盘操作某些特定的元素。（比如左击，右击，双击等）
+
+在Selenium 4 中，添加了以下的方法：
+action = ActionChains(driver)
+click(WebElement)
+代替：moveToElement(onElement).click()
+
+作用：点击某个元素
+
+clickAndHold(WebElement)
+代替： moveToElement(onElement).clickAndHold()
+
+作用：点击某个元素并且不放
+
+contextClick(WebElement)
+代替： moveToElement(onElement).contextClick(）
+
+作用：右击某个元素
+
+doubleClick(WebElement)
+代替： moveToElement(element).doubleClick()
+
+作用：双击某个元素
+
+release()
+代替： 原来是org.openqa.selenium.interactions.ButtonReleaseAction类的一部分，现在加到Actions类中
+
+作用：松开某个元素
