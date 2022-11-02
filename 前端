@@ -104,17 +104,27 @@ to加冒号，里面不再是字符串，而是一段代码表达式。
 el-form 表单，可以直接关联并同步 vue的具体字典型变量，post请求可以直接发送这个变量，而不用从表单的各个输入框中提取数据了。
 
 js刷新页面： window.location.reload()
+<el-select v-model="model">
+                <el-option
+                    label="other脚本(低性能)"
+                    value="other"
+                >
+                </el-option>                             
+</el-select>
 知识点24：上传文件
 El-upload
 <el-upload
     :action="get_action()"
     :limit="10"
+    :data="{'script_model':script_model}"//带参数
     name="script_file"
     :on-success="get_script_list" //上传成功的回调函数。
 >
     <el-button>上传脚本</el-button>
 </el-upload>
-
+get_action(){
+                return process.env.VUE_APP_BASE_URL + '/upload_script_file/'
+            }
 def upload_script_file(request):
     myFile = request.FILES.get('script_file')
     file_name = str(myFile)
