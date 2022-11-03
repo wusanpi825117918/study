@@ -176,3 +176,9 @@ this.handleCurrentChange(this.project_currentPage)
                                 ></el-option>
 
  </el-select>
+前端删除和增加数据del_step(index){
+                this.plan.splice(index,1)
+            },
+            del_step(scope.$index）
+            add_step(){
+                this.plan.push({"name":"","old_num":"","old_round":""})
