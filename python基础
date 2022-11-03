@@ -1,0 +1,53 @@
+map
+    # 这个函数是为了给map的参数一进行传参
+    # 因为map函数需要使用这个函数来计算每一个元素的映射值 ，
+    # 所以该函数有且必须只能有一个参数
+    def f(x):
+        return x ** 3
+
+    # result_list = map(f, my_list)
+
+    # 利用lambda 来替代函数进行传参
+    result_list = map(lambda n: n ** 4, my_list)
+高阶函数-reduce
+    # 注意：reduce 不能直接使用，需要导入一个模块 functools
+    # reduce 作用是根据传入的参数一对参数二中的数据进行累计
+    import functools
+    # 练习 ：使用 reduce 求阶乘
+
+    my_list = [i for i in range(1,6)]
+
+    result = functools.reduce(lambda n1,n2: n1 * n2, my_list)
+num_list = filter(lambda s: s.isdigit(), my_list)
+sort方法对字典进行比较排序
+    my_list = [{'id': 1,'name': 'tom','age':12},{'id': 3,'name': 'rose','age':32},{'id': 2,'name': 'Jack','age':22}]
+    # 按id的升序排序
+    # my_list.sort(key=lambda d: d['id'])
+    # 按年龄降序排序
+    my_list.sort(key=lambda d: d['age'],reverse=True)
+私有方法的使用
+    class ThunderBird(object):
+
+        # 实现一个初始方法，用来保存下载任务
+        def __init__(self):
+            self.__list = []
+
+        # 实现一个公有的方法，用来添加任务
+        def add_task(self,url):
+            self.__list.append(url)
+            # 在类的内部，直接 访问私有方法
+            self.__download_data(url)
+
+
+        # 核心代码 ，用来下载数据的算法
+        def __download_data(self,url):
+            print(f'通过地址 {url} 下载数据中。。。。')
+
+
+    # 测试
+    tb = ThunderBird()
+    # 通过一个公有方法，间接 访问的了对象的私有方法，下载数据
+    tb.add_task('http://www.dytt88.net/复联4.mp4')
+
+    # 私有方法在类的外部是不能拼接访问的。
+    # tb.__downoad_data('http://www.dytt88.net/复联4.mp4')
