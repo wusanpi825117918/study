@@ -1,0 +1,2 @@
+模糊搜索
+    DB_case.objects.filter(duan_id=did,name__contains=kwords)
