@@ -111,71 +111,71 @@ js刷新页面： window.location.reload()
                 >
                 </el-option>                             
 </el-select>
-知识点24：上传文件
-El-upload
-<el-upload
-    :action="get_action()"
-    :limit="10"
-    :data="{'script_model':script_model}"//带参数
-    name="script_file"
-    :on-success="get_script_list" //上传成功的回调函数。
->
-    <el-button>上传脚本</el-button>
-</el-upload>
-get_action(){
-                return process.env.VUE_APP_BASE_URL + '/upload_script_file/'
-            }
-def upload_script_file(request):
-    myFile = request.FILES.get('script_file')
-    file_name = str(myFile)
-    fp = open('scripts/'+file_name,'wb+')
-    for i in myFile.chunks():
-        fp.write(i)
-    fp.close()
-    return HttpResponse('')
-知识点28：修改顶部的vue路由：（#号之后的部分）
-this.$router.push( '/project_detail/?project_id=' + id);
-如果想修改完整的： window.location.href=""
-this.函数名() 可以调用vue内methods里的函数
-:close-on-click-modal="false" 点击遮罩层不关闭dialog
-分页
-dom层每页展示数
-:data="projects.slice((project_currentPage - 1)*project_pageSize,project_currentPage*project_pageSize)"
-设置分页效果
-<el-pagination background
-              layout="prev, pager, next,jumper, ->, total"
-              :total="project_total"
-              @current-change="handleCurrentChange"
-              :current-page="project_currentPage"
-              :page-size="project_pageSize"
->  </el-pagination>
-data
-project_currentPage:1,
-project_pageSize:6,
-project_total:0,
+上传文件
+                      El-upload
+                      <el-upload
+                          :action="get_action()"
+                          :limit="10"
+                          :data="{'script_model':script_model}"//带参数
+                          name="script_file"
+                          :on-success="get_script_list" //上传成功的回调函数。
+                      >
+                          <el-button>上传脚本</el-button>
+                      </el-upload>
+                      get_action(){
+                                      return process.env.VUE_APP_BASE_URL + '/upload_script_file/'
+                                  }
+                      def upload_script_file(request):
+                          myFile = request.FILES.get('script_file')
+                          file_name = str(myFile)
+                          fp = open('scripts/'+file_name,'wb+')
+                          for i in myFile.chunks():
+                              fp.write(i)
+                          fp.close()
+                          return HttpResponse('')
+修改顶部的vue路由：（#号之后的部分）
+                      this.$router.push( '/project_detail/?project_id=' + id);
+                      如果想修改完整的： window.location.href=""
+                      this.函数名() 可以调用vue内methods里的函数
+                      :close-on-click-modal="false" 点击遮罩层不关闭dialog
+                      分页
+                      dom层每页展示数
+                      :data="projects.slice((project_currentPage - 1)*project_pageSize,project_currentPage*project_pageSize)"
+                      设置分页效果
+                      <el-pagination background
+                                    layout="prev, pager, next,jumper, ->, total"
+                                    :total="project_total"
+                                    @current-change="handleCurrentChange"
+                                    :current-page="project_currentPage"
+                                    :page-size="project_pageSize"
+                      >  </el-pagination>
+                      data
+                      project_currentPage:1,
+                      project_pageSize:6,
+                      project_total:0,
 
-初始化this.project_total = this.projects.length
-methods里新增函数
-handleCurrentChange(project_currentPage){
-    console.log(project_currentPage,this.projects.length/this.project_pageSize)
-    if(project_currentPage - this.projects.length/this.project_pageSize >=1 && project_currentPage>1){
+                      初始化this.project_total = this.projects.length
+                      methods里新增函数
+                      handleCurrentChange(project_currentPage){
+                          console.log(project_currentPage,this.projects.length/this.project_pageSize)
+                          if(project_currentPage - this.projects.length/this.project_pageSize >=1 && project_currentPage>1){
 
-        project_currentPage --;
-    }
-    this.project_currentPage = project_currentPage
-    
-去可能修改整体数据数量的函数中，调用handleCurrentChange，和初始化调用不同的是，传入的参数为当前页，而非1
-this.project_total = this.projects.length
-this.handleCurrentChange(this.project_currentPage)
-<el-select v-model="project_detail.scripts" multiple placeholder="请选择脚本" style="width: 100%">
+                              project_currentPage --;
+                          }
+                          this.project_currentPage = project_currentPage
 
-                                <el-option
-                                    v-for="(i,index) in script_list"
-                                    :label=" '【' +index+ '】'+ i"
-                                    :value="i"
-                                ></el-option>
+                      去可能修改整体数据数量的函数中，调用handleCurrentChange，和初始化调用不同的是，传入的参数为当前页，而非1
+                      this.project_total = this.projects.length
+                      this.handleCurrentChange(this.project_currentPage)
+                      <el-select v-model="project_detail.scripts" multiple placeholder="请选择脚本" style="width: 100%">
 
- </el-select>
+                                                      <el-option
+                                                          v-for="(i,index) in script_list"
+                                                          :label=" '【' +index+ '】'+ i"
+                                                          :value="i"
+                                                      ></el-option>
+
+                       </el-select>
 前端删除和增加数据del_step(index){
                 this.plan.splice(index,1)
             },
