@@ -35,6 +35,11 @@ getColor(status){    if(status=='队列中'){        return 'blue'    }else if(s
         <p :style="{color:getColor(scope.row.status)}"><strong>{{scope.row.status}}</strong></p>
     </template>
 </el-table-column>
+动态文案
+           <template slot-scope="scope">
+                  <span  v-text="get_text(scope.row.name)"></span>
+           </template>
+
 getColor(status){
     if(status=='队列中'){
         return 'blue'
