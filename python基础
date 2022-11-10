@@ -53,3 +53,21 @@ sort方法对字典进行比较排序
     # tb.__downoad_data('http://www.dytt88.net/复联4.mp4')
 复制文件及目录
         shutil.copytree(demo_path,new_path)  //shutil.copytree(r'C:\Users')
+多进程
+            # 通过进程类创建进程对象
+            coding_process = multiprocessing.Process(target=coding, args=(3, "传智"))
+            # 通过进程类创建进程对象
+            music_process = multiprocessing.Process(target=music, kwargs={"count": 2})
+            # 启动进程
+            coding_process.start()
+            获取进程编号os.getpid()
+            
+            线程锁
+                互斥锁
+                # 创建锁
+                mutex = threading.Lock()
+                # 上锁
+                mutex.acquire()
+                lock.acquire()
+                # 解锁
+                mutex.release()
