@@ -1,0 +1,134 @@
+                # 1 导入re模块 import re
+                import re
+
+                # 2 match匹配数据
+                #      match（正则表达式,要匹配的字符串）
+                #      result = re.match(正则表达式,要匹配的字符串)
+                result = re.match("itc", "itcast")
+
+                # 3 group提取数据
+                #      result.group()
+                info = result.group()
+                print(info)
+
+匹配单个字符              # .	    匹配任意1个字符（除了\n）
+              # 匹配数据
+              # result = re.match("itcast.", "itcast\n")
+              #
+              # # 获取数据
+              # if result:
+              #     info = result.group()
+              #     print(info)
+              # else:
+              #     print("没有匹配到")
+
+
+              # [ ]	匹配[ ]中列举的字符
+              # 匹配数据
+              # result = re.match("itcast[123abc]", "itcast-")
+              # \d	匹配数字,即0-9 => [0123456789] => [0-9]            
+              # \D	匹配非数字,即不是数字              
+              # \s	匹配空白,即空格,tab键
+              # \S	匹配非空白
+              # 匹配数据
+              # result = re.match("itcast\S", "itcast\t")  \t 制表符 4个空格
+              # \w	匹配非特殊字符，即a-z, A-Z, 0-9, _, 汉字
+              # \W	匹配特殊字符,即非字母, 非数字, 非_, 非汉字           
+
+匹配多个字符
+                    # ?	匹配前一个字符出现1次或者0次，即要么有1次，要么没有
+                    # result = re.match("itcast\d?itcast", "itcastitcast")
+                    # {m}	匹配前一个字符出现m次
+                    # result = re.match("itcast\d{2}itcast", "itcast12itcast")
+                    # {m,n}	匹配前一个字符出现从m到n次
+                    result = re.match("itcast\d{2,5}itcast", "itcast12112312312312312itcast")
+
+                  
+ 匹配开头和结尾
+                    ^匹配字符串开头
+                    # 匹配数据
+                    # result = re.match("^\ditcast", "22itcast")
+                    # 以数字为开头的字符串
+                    # result = re.match("^\d.*", "2itcast")
+                   
+                    # $	          匹配字符串结尾
+                    # result = re.match(".*\d$", "itcast")
+                   
+                    # 匹配以数字为开头以数字为结尾
+                    # result = re.match("^\d.*\d$", "11itcast22")
+                   
+                    # [^指定字符]  匹配除了指定字符以外的所有字符
+                    result = re.match("^\d.*[^4]$", "11itcast@")
+
+                    
+匹配分组                  
+                  # # 1需求：在列表中["apple", "banana", "orange", "pear"]，匹配apple和pear
+                    #
+                    # fruit = ["apple", "banana", "orange", "pear"]
+                    #
+                    # # 获取字符串数据
+                    # # |	匹配左右任意一个表达式
+                    # for value in fruit:
+                    #     result = re.match("apple|pear", value)
+                    #     # 判断匹配是否成功
+                    #     if result:
+                    #         info = result.group()
+                    #         print("我想吃的水果:",value)
+                    #     else:
+                    #         print("这个不是我想吃的水果")
+
+
+                    # 2需求：匹配出163、126、qq等邮箱
+                    # |	匹配左右任意一个表达式
+                    # (ab)	将括号中字符作为一个分组
+                    # \ 转义字符
+                    # result = re.match("[a-zA-Z0-9_]{4,20}@(163|126|qq)\.com", "hello@qq.com")
+                   
+                   # 3需求：匹配qq:10567这样的数据，提取出来qq文字和qq号码
+                    # group(0)代表的是匹配的所有数据 1:第一个分组的数据 2:第二个分组的数据 顺序是从左到右依次排序的
+                    # result = re.match("(qq):([1-9]\d{4,11})", "qq:10567")
+                    # if result:
+                    #     info = result.group(0)
+                    #     print(info)
+                    #
+                    #     num = result.group(2)
+                    #     print(num)
+                    #
+                    #     type = result.group(1)
+                    #     print(type)
+                    # else:
+                    #     print("匹配失败")
+                    #
+
+                    # 4需求：匹配出<html>hh</html>
+                    # \num	引用分组num匹配到的字符串
+                    # result = re.match("<([a-zA-Z1-6]{4})>.*</\\1>", "<html>hh</html>")
+                    # if result:
+                    #     info = result.group()
+                    #     print(info)
+                    # else:
+                    #     print("匹配失败")
+
+
+                    # 5需求：匹配出<html><h1>www.itcast.cn</h1></html>
+                    # result = re.match("<([a-zA-Z1-6]{4})><([a-zA-Z1-6]{2})>.*</\\2></\\1>", "<html><h1>www.itcast.cn</h1></html>")
+                    # if result:
+                    #     info = result.group()
+                    #     print(info)
+                    # else:
+                    #     print("匹配失败")
+
+
+                    # 6需求：匹配出<html><h1>www.itcast.cn</h1></html>
+                    # (?P<name>)	分组起别名
+                    # (?P=name)	引用别名为name分组匹配到的字符串
+                    result = re.match("<(?P<html>[a-zA-Z1-6]{4})><(?P<h1>[a-zA-Z1-6]{2})>.*</(?P=h1)></(?P=html)>", "<html><h1>www.itcast.cn</h1></html>")
+                    if result:
+                        info = result.group()
+                        print(info)
+                    else:
+                        print("匹配失败")
+                        
+>>> r = re.findall('\d','1h2j3j4j5j6')
+>>> r
+['1', '2', '3', '4', '5', '6']
