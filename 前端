@@ -40,15 +40,14 @@ getColor(status){    if(status=='队列中'){        return 'blue'    }else if(s
                   <span  v-text="get_text(scope.row.name)"></span>
            </template>
 
-getColor(status){
-    if(status=='队列中'){
-        return 'blue'
-    }else if(status=='压测中'){
-        return 'green'
-    }else{
-        return 'black'
-    }
-}
+           get_text(name){
+                           if(name.split('/')[0] == 'other'){
+                               return '低性能'
+                           }else if(name.split('/')[0] == 'python'){
+                               return '中高性能'
+                           }else if(name.split('/')[0] == 'go'){
+                               return '高性能'
+                           }
 7：v-for
 可以循环元素本体及子元素。v-for = "i in 变量"
 使用时候 用 {{ i }} ,此时的i 等价于在data-return中声明的变量一样的用法，仅能用于 这个循环元素内
