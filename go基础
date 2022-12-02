@@ -1,0 +1,37 @@
+go run hello.go
+go build 生成二进制文件
+变量声明
+  var d = true
+  var vname1, vname2, vname3 = v1, v2, v3
+  v_name := value
+        package main
+
+        var x, y int
+        var (  // 这种因式分解关键字的写法一般用于声明全局变量
+            a int
+            b bool
+        )
+
+        var c, d int = 1, 2
+        var e, f = 123, "hello"
+
+        //这种不带声明格式的只能在函数体中出现
+        //g, h := 123, "hello"
+
+        func main(){
+            g, h := 123, "hello"
+            println(x, y, a, b, c, d, e, f, g, h)
+        }
+     
+常量
+  const b = "abc"
+
+数组
+  var balance [10] float32
+  var balance = [5]float32{1000.0, 2.0, 3.4, 7.0, 50.0}
+  不定长
+  var balance = [...]float32{1000.0, 2.0, 3.4, 7.0, 50.0}
+  或
+  balance := [...]float32{1000.0, 2.0, 3.4, 7.0, 50.0}
+  //  将索引为 1 和 3 的元素初始化
+  balance := [5]float32{1:2.0,3:7.0}
