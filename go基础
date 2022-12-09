@@ -35,3 +35,44 @@ go build 生成二进制文件
   balance := [...]float32{1000.0, 2.0, 3.4, 7.0, 50.0}
   //  将索引为 1 和 3 的元素初始化
   balance := [5]float32{1:2.0,3:7.0}
+
+循环
+  for initialisation; condition; post {  
+}
+  func main() {  
+    for i := 1; i <= 10; i++ {
+        if i > 5 {
+            break // 如果 i > 5 就跳出
+        }
+        fmt.Printf("%d ", i)
+    }
+    fmt.Printf("\nline after for loop")
+}
+func main() {
+    age := 10
+
+    switch age {
+    case 5:
+        fmt.Println("The age is 5")
+    case 7:
+        fmt.Println("The age is 7")
+    case 10:
+        fmt.Println("The age is 10")
+    default:
+        fmt.Println("The age is unkown")
+    }
+}
+func main() {
+    age := 7
+
+    switch {
+    case age >= 6 && age <= 12:
+        fmt.Println("It's primary school")
+    case age >= 13 && age <= 15:
+        fmt.Println("It's middle school")
+    case age >= 16 && age <= 18:
+        fmt.Println("It's high school")
+    default:
+        fmt.Println("The age is unkown")
+    }
+}
