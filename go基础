@@ -76,3 +76,13 @@ func main() {
         fmt.Println("The age is unkown")
     }
 }
+
+recover错误拦截
+ defer func() {
+		//设置recover拦截错误信息
+		err := recover()
+		//产生panic异常  打印错误信息
+		if err != nil {
+			fmt.Println(err)
+		}
+	}()
