@@ -92,3 +92,17 @@ recover错误拦截
 		字段名 字段类型
 		…
 	    } 
+字符串以。开头strings.HasPrefix(s, prefix string) bool
+	strings.HasSuffix(s, suffix string)
+	strings.Contains(s, substr string) bool
+	Index() 返回字符串 str 在字符串 s 中的索引（str 的第一个字符的索引），-1 表示字符串 s 不包含字符串 str：
+		strings.Index(s, str string) int
+	strings.LastIndex(s, str string) int
+	strings.IndexRune(s string, r rune) int
+	strings.Replace(str, old, new string, n int) string
+	strings.Count(s, str string) int
+
+if val := 10; val > max {
+	// do something
+}
+	
