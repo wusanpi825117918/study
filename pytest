@@ -1,0 +1,10 @@
+1.命令行执行某函数pytest -q 文件名.py::类名::方法名
+l 模块级（开始于模块始末，全局的）：setup_module()、
+teardown_module()
+l 函数级（只对函数用例生效，不在类中）：setup_function()、
+teardown_function()
+l 类级（只在类中前后运行一次，在类中）：setup_class()、
+teardown_class()
+l 方法级（开始于方法始末，在类中）：setup_method()、
+teardown_method()
+l 方法细化级（运行在调用方法的前后）：setup()、teardown()
