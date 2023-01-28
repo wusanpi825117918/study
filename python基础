@@ -51,8 +51,6 @@ sort方法对字典进行比较排序
 
     # 私有方法在类的外部是不能拼接访问的。
     # tb.__downoad_data('http://www.dytt88.net/复联4.mp4')
-复制文件及目录
-        shutil.copytree(demo_path,new_path)  //shutil.copytree(r'C:\Users')
 多进程
             # 通过进程类创建进程对象
             coding_process = multiprocessing.Process(target=coding, args=(3, "传智"))
